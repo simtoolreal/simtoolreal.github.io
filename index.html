@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="SimToolReal: An Object-Centric Policy for Zero-Shot Dexterous Tool Manipulation">
+  <meta name="keywords" content="SimToolReal, Sim-to-Real RL, Dexterous Manipulation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SimToolReal</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CYM1ND10PG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CYM1ND10PG');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-2 publication-title">SimToolReal: An Object-Centric Policy for Zero-Shot Dexterous Tool Manipulation</h1>
+
+            <!-- Author block -->
+            <!-- Comment out for now -->
+<!-- 
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://kushal2000.github.io/">Kushal Kedia*</a>,</span>
+              <span class="author-block">
+                <a href="https://tylerlum.github.io/">Tyler Ga Wei Lum*</a>,</span>
+              <span class="author-block">
+                <a href="https://web.stanford.edu/~bohg/">Jeannette Bohg†</a>,</span>
+              <span class="author-block">
+                <a href="https://tml.stanford.edu/people/karen-liu">C. Karen Liu†</a>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">* denotes equal contribution</span> <br>
+              <span class="author-block">† denotes equal advising</span> <br>
+              <span class="author-block">Stanford University</span> <br>
+              <span class="author-block"><b>Robotics: Science and Systems (RSS) 2026</b></span>
+            </div>
+ -->
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- arXiv Link -->
+                <span class="link-block">
+                  <a href="https://simtoolreal.github.io" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- Summary Video Link. -->
+                <span class="link-block">
+                  <a href="https://simtoolreal.github.io" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Summary Video</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://simtoolreal.github.io" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Twitter Link. -->
+                <span class="link-block">
+                  <a href="https://simtoolreal.github.io" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-twitter"></i>
+                    </span>
+                    <span>Tweet</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!-- Teaser Video -->
+
+        <!-- Version 1: 1 Video-->
+        <div class="teaser-video">
+          <video id="teaser" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/Collage_and_GraspRotateToolUse_1080p_compressed.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <!-- Version 2: 2 Videos-->
+<!--
+        <div class="columns is-centered">
+          <div class="column">
+            <div class="teaser-video">
+              <video id="teaser-1" autoplay muted loop playsinline width="100%">
+                <source src="./static/videos/Grasp_Rotate_ToolUse_1080p_compressed.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="teaser-video">
+              <video id="teaser-2" autoplay muted loop playsinline width="100%">
+                <source src="./static/videos/Collage_1080p_compressed.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+-->
+
+        <h2 class="subtitle has-text-centered">
+          <p>
+            <span class="dnerf">SimToolReal</span> is a generalist, object-centric policy for dexterous manipulation of unseen tools and tasks
+          </p>
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              The ability to manipulate tools significantly expands the set of tasks a robot can perform.
+              Yet, tool manipulation represents a challenging class of dexterity, requiring grasping thin objects, in-hand object rotations, and forceful interactions.
+              Since collecting teleoperation data for these behaviors is challenging, sim-to-real reinforcement learning (RL) is a promising alternative.
+              However, prior approaches typically require substantial engineering effort to model objects and tune reward functions for each task.
+            </p>
+            <p>
+              In this work, we propose <span class="dnerf">SimToolReal</span>, taking a step towards generalizing sim-to-real RL policies for tool manipulation.
+              Instead of focusing on a single object and task, we procedurally generate a large variety of tool-like object primitives in simulation and train a single RL policy with the universal goal of manipulating each object to random goal poses.
+              This approach enables <span class="dnerf">SimToolReal</span> to perform general dexterous tool manipulation at test-time without any object or task-specific training.
+              We demonstrate that <span class="dnerf">SimToolReal</span> outperforms prior retargeting and fixed-grasp methods by 37% while matching the performance of specialist RL policies trained on specific target objects and tasks.
+              Finally, we show that <span class="dnerf">SimToolReal</span> generalizes across a diverse set of everyday tools, achieving strong zero-shot performance over 120 real-world rollouts spanning 24 tasks, 12 object instances, and 6 tool categories.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+  </section>
+
+  <!-- Summary Video -->
+  <!-- Comment out for now -->
+<!-- 
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Summary Video</h2>
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/xOL_m7Y_PBA" frameborder="0"
+              allow="encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+-->
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <h2 class="title is-2 has-text-centered">Method</h2>
+        <div class="splash-video">
+          <video id="teaser" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/Inference_in_Real_1080p_compressed.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Real-World Robot Performance</h2>
+          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
+
+          <!-- <h2 class="title is-3">Spatula (Zero-Shot)</h2> -->
+          <div class="t">
+            <ul>
+              <li class="spatula-item">
+                <div class="spatula">
+                  <video poster="" id="plate-lift-rack" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Spatula_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- <h2 class="title is-3">Screwdriver (Zero-Shot)</h2> -->
+          <div class="t">
+            <ul>
+              <li class="screwdriver-item">
+                <div class="screwdriver">
+                  <video poster="" id="snackbox-push" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Screwdriver_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- Acknowledgements -->
+  <!-- Comment out for now -->
+<!-- 
+  <section class="section" id="acknowledgements">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Acknowledgements</h2>
+      <p> This work is supported by Stanford Human-Centered Artificial Intelligence (HAI), 
+        the National Science Foundation (NSF) under Grant Numbers 2153854 and 2342246, 
+        and the Natural Sciences and Engineering Research Council of Canada (NSERC) under Award Number 526541680.
+      </p>
+    </div>
+  </section>
+ -->
+
+
+  <!-- BibTeX -->
+  <!-- Comment out for now -->
+<!-- 
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{TODO,
+      }</code></pre>
+    </div>
+  </section>
+ -->
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              Website template by <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
