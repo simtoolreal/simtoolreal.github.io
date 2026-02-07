@@ -1,0 +1,296 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.teaser-video {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.splash-video {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.results-carousel {
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+  margin-bottom: -5px;
+}
+
+
+.interpolation-panel {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.interpolation-video-column {
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+#interpolation-image-wrapper {
+  width: 100%;
+}
+#interpolation-image-wrapper img {
+  border-radius: 5px;
+}
+
+/* Video layout section */
+.t {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Make the unordered list more flexible */
+.t ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+/* Base styling for all list items */
+.t li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* Standardize video container styling */
+.t li > div {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Make all videos responsive within their containers */
+.t video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Specific category sizing */
+/* For grasping tasks - 2 videos per row on desktop */
+.t li.grasp-item,
+.t li.OOD-item,
+.t li.ablation-suff-item {
+  width: 50%;
+}
+
+.t li.robust-bg-item,
+.t li.robust-perturb-item,
+.t li.ablation-suff-item {
+  width: 33%;
+}
+
+/* For non-prehensile tasks - 4 videos per row on desktop */
+.t li.non-prehensile-item,
+.t li.robust-misc-item, 
+.t li.ablation-obj-item,
+.t li.ablation-premanip-item {
+  width: 25%;
+}
+
+/* For multi-step tasks - 1 video per row */
+.t li.multi-step-item {
+  width: 75%;
+  max-width: 800px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+  .t li.non-prehensile-item {
+    width: 33.33%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .t li.grasp-item {
+    width: 100%;
+  }
+  
+  .t li.non-prehensile-item {
+    width: 50%;
+  }
+  
+  .t li.multi-step-item {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .t li.non-prehensile-item {
+    width: 100%;
+  }
+}
+
+/* Fix for old class names to ensure backward compatibility */
+.t li .grasp,
+.t li .non-prehensile,
+.t li .multi-step,
+.t li .item-plate-push,
+.t li .robustness,
+.t li .item-OOD {
+  width: 100%;
+  height: auto;
+  margin: 0 0 1rem 0;
+}
+
+iframe {
+  display: block;
+}
+
+/* Medium screens (two videos per row) */
+@media (max-width: 1024px) {
+  li {
+    width: 48%; /* Two videos per row */
+  }
+}
+
+/* Small screens (one video per row) */
+@media (max-width: 600px) {
+  li {
+    width: 100%; /* Full width */
+  }
+}
