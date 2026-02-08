@@ -89,13 +89,13 @@
                     <span>Paper</span>
                   </a>
                 </span>
-                <!-- Summary Video Link. -->
+                <!-- Video Link. -->
                 <span class="link-block">
-                  <a href="https://simtoolreal.github.io" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://www.youtube.com/watch?v=N0SO7YFG5eU" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-youtube"></i>
                     </span>
-                    <span>Summary Video</span>
+                    <span>Video</span>
                   </a>
                 </span>
                 <!-- Code Link. -->
@@ -194,33 +194,38 @@
       <!--/ Abstract. -->
   </section>
 
-  <!-- Summary Video -->
-  <!-- Comment out for now -->
-<!-- 
+  <!-- Video -->
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-2">Summary Video</h2>
+          <h2 class="title is-2">Video</h2>
           <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/xOL_m7Y_PBA" frameborder="0"
+            <iframe src="https://www.youtube.com/embed/N0SO7YFG5eU?si=496dSOUjn0Lt8Qtx" frameborder="0"
               allow="encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
       </div>
     </div>
   </section>
--->
 
   <section class="section">
     <div class="container is-max-desktop">
       <div class="hero-body">
         <h2 class="title is-2 has-text-centered">Method</h2>
-        <div class="splash-video">
+
+        <div class="train">
+          <video id="teaser" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/Train_in_Sim_1080p_compressed.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="inference">
           <video id="teaser" autoplay muted loop playsinline height="100%">
             <source src="./static/videos/Inference_in_Real_1080p_compressed.mp4" type="video/mp4">
           </video>
         </div>
+
       </div>
     </div>
   </section>
@@ -232,12 +237,25 @@
           <h2 class="title is-2">Real-World Robot Performance</h2>
           <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
 
+          <!-- <h2 class="title is-3">Brush (Zero-Shot)</h2> -->
+          <div class="t">
+            <ul>
+              <li class="brush-item">
+                <div class="brush">
+                  <video poster="" id="brush" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Brush_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
           <!-- <h2 class="title is-3">Spatula (Zero-Shot)</h2> -->
           <div class="t">
             <ul>
               <li class="spatula-item">
                 <div class="spatula">
-                  <video poster="" id="plate-lift-rack" autoplay controls muted loop playsinline>
+                  <video poster="" id="spatula" autoplay controls muted loop playsinline>
                     <source src="./static/videos/Spatula_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -250,8 +268,47 @@
             <ul>
               <li class="screwdriver-item">
                 <div class="screwdriver">
-                  <video poster="" id="snackbox-push" autoplay controls muted loop playsinline>
+                  <video poster="" id="screwdriver" autoplay controls muted loop playsinline>
                     <source src="./static/videos/Screwdriver_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- <h2 class="title is-3">Marker (Zero-Shot)</h2> -->
+          <div class="t">
+            <ul>
+              <li class="marker-item">
+                <div class="marker">
+                  <video poster="" id="marker" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Marker_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- <h2 class="title is-3">Eraser (Zero-Shot)</h2> -->
+          <div class="t">
+            <ul>
+              <li class="eraser-item">
+                <div class="eraser">
+                  <video poster="" id="eraser" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Eraser_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- <h2 class="title is-3">Hammer (Zero-Shot)</h2> -->
+          <div class="t">
+            <ul>
+              <li class="hammer-item">
+                <div class="hammer">
+                  <video poster="" id="hammer" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Hammer_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
               </li>
@@ -263,7 +320,94 @@
     </div>
   </section>
 
-  
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Baselines</h2>
+          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
+
+          <!-- <h2 class="title is-3">Baselines</h2> -->
+          <div class="t">
+            <ul>
+              <li class="baselines-item">
+                <div class="baselines">
+                  <video poster="" id="baselines" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Comparisons_with_Baselines_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Failures and Recovery Behavior</h2>
+          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
+
+          <!-- <h2 class="title is-3">Failure Modes</h2> -->
+          <div class="t">
+            <ul>
+              <li class="failure-modes-item">
+                <div class="failure-modes">
+                  <video poster="" id="failure-modes" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Failures_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- <h2 class="title is-3">Robustness and Recovery Behavior</h2> -->
+          <div class="t">
+            <ul>
+              <li class="robustness-and-recovery-behavior-item">
+                <div class="robustness-and-recovery-behavior">
+                  <video poster="" id="robustness-and-recovery-behavior" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Recovery_from_Failures_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Visualization of Policy Observations</h2>
+          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
+
+          <!-- <h2 class="title is-3">Visualization of Policy Observations</h2> -->
+          <div class="t">
+            <ul>
+              <li class="visualization-of-policy-observations-item">
+                <div class="visualization-of-policy-observations">
+                  <video poster="" id="visualization-of-policy-observations" autoplay controls muted loop playsinline>
+                    <source src="./static/videos/Visualize_Policy_Observations_1080p_compressed.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Acknowledgements -->
   <!-- Comment out for now -->
 <!-- 
