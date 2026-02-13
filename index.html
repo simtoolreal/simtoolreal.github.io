@@ -123,27 +123,15 @@
     </div>
   </section>
 
-  <section class="hero teaser">
+  <section class="hero-teaser-fullbleed">
     <div class="container is-max-desktop">
-      <div class="hero-body">
-        <!-- Teaser Video -->
-
-        <!-- Version 1: 1 Video-->
-        <div class="teaser-video">
-          <video id="teaser-main" autoplay muted loop playsinline height="100%">
-            <source src="./static/videos/Collage_and_GraspRotateToolUse_1080p_compressed.mp4" type="video/mp4">
-          </video>
-        </div>
-
-        <h2 class="subtitle has-text-centered">
-          <p>
-            <span class="dnerf">SimToolReal</span> is a generalist, object-centric policy for dexterous manipulation of unseen tools and tasks
-          </p>
-        </h2>
+      <div class="teaser-video-wrapper">
+        <video id="teaser-main" autoplay muted loop playsinline>
+          <source src="./static/videos/TEASER.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
-
 
   <section class="section">
     <div class="container is-max-desktop">
@@ -168,24 +156,24 @@
       <!--/ Abstract. -->
   </section>
 
-  <section class="section">
+  <section class="section greatest-hits-section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column">
-          <h2 class="title is-2">Greatest Hits (Sound On 🔊)</h2>
-          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
-
-          <!-- <h2 class="title is-3">Visualization of Policy Observations</h2> -->
-          <div class="t">
-            <ul>
-              <li class="greatest-hits-item">
-                <div class="greatest-hits">
-                  <video poster="" id="greatest-hits" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Greatest_Hits.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
+          <h2 class="title is-2">Zero-Shot Dexterous Manipulation</h2>
+          <h2 class="subtitle is-5">Dynamic spinning, in-hand rotation, and stable grasps on unseen tools and tasks</h2>
+          <div class="greatest-hits-video">
+            <div class="gh-overlay" id="gh-overlay">
+              <span class="gh-overlay-text">Turn sound on</span>
+            </div>
+            <div class="gh-sound-icon">
+              <span class="gh-sound-pulse"></span>
+              <span class="gh-sound-pulse delay"></span>
+              <i class="fas fa-headphones"></i>
+            </div>
+            <video id="greatest-hits" muted controls loop playsinline preload="auto">
+              <source src="./static/videos/Greatest_Hits.mp4" type="video/mp4">
+            </video>
           </div>
 
         </div>
@@ -193,112 +181,102 @@
     </div>
   </section>
 
+  <section class="section tool-category-section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Real-World Rollouts </h2>
+          <h2 class="subtitle is-5">Select a tool category to watch manipulation across diverse objects and tasks</h2>
+
+          <!-- Tool category pill buttons -->
+          <div class="tool-category-buttons">
+            <button class="tool-btn active" data-video="./static/videos/Brush_1080p_compressed.mp4" data-icon="fas fa-paint-brush" onclick="switchToolVideo(this)">
+              <i class="fas fa-paint-brush"></i> Brush
+            </button>
+            <button class="tool-btn" data-video="./static/videos/Spatula_1080p_compressed.mp4" data-icon="fas fa-utensils" onclick="switchToolVideo(this)">
+              <i class="fas fa-utensils"></i> Spatula
+            </button>
+            <button class="tool-btn" data-video="./static/videos/Screwdriver_1080p_compressed.mp4" data-icon="fas fa-screwdriver" onclick="switchToolVideo(this)">
+              <i class="fas fa-screwdriver"></i> Screwdriver
+            </button>
+            <button class="tool-btn" data-video="./static/videos/Marker_1080p_compressed.mp4" data-icon="fas fa-pen" onclick="switchToolVideo(this)">
+              <i class="fas fa-pen"></i> Marker
+            </button>
+            <button class="tool-btn" data-video="./static/videos/Eraser_1080p_compressed.mp4" data-icon="fas fa-eraser" onclick="switchToolVideo(this)">
+              <i class="fas fa-eraser"></i> Eraser
+            </button>
+            <button class="tool-btn" data-video="./static/videos/Hammer_1080p_compressed.mp4" data-icon="fas fa-hammer" onclick="switchToolVideo(this)">
+              <i class="fas fa-hammer"></i> Hammer
+            </button>
+          </div>
+
+          <!-- Video player -->
+          <div class="tool-video-container">
+            <video id="tool-category-video" controls muted loop playsinline preload="metadata" class="lazy-video">
+              <source id="tool-category-source" src="./static/videos/Brush_1080p_compressed.mp4" type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section approach-section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Universal Training Objective: Any Goal-Pose Reaching</h2>
+          <div class="approach-video-container">
+            <video id="method-train" controls muted loop playsinline preload="metadata" class="lazy-video">
+              <source src="./static/videos/Train_in_Sim_1080p_compressed.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section approach-section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Track Goal Trajectory on Unseen Tool at Test-Time</h2>
+          <div class="approach-video-container">
+            <video id="visualization-of-policy-observations" controls muted loop playsinline preload="metadata" class="lazy-video">
+              <source src="./static/videos/Visualize_Policy_Observations_1080p_compressed.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section approach-section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">Common Failure Modes</h2>
+          <h2 class="subtitle is-5">We break down the different reasons for failure. The policy shows strong recovery behavior from behavior.</h2>
+          <div class="approach-video-container">
+            <video id="robustness-and-recovery-behavior" controls muted loop playsinline preload="metadata" class="lazy-video">
+              <source src="./static/videos/failureRecovery.m4v" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commented out sections
   <section class="section">
     <div class="container is-max-desktop">
       <div class="hero-body">
         <h2 class="title is-2 has-text-centered">Method</h2>
-
-        <div class="train">
-          <video id="method-train" muted loop playsinline height="100%" preload="metadata" class="lazy-video">
-            <source src="./static/videos/Train_in_Sim_1080p_compressed.mp4" type="video/mp4">
-          </video>
-        </div>
-
         <div class="inference">
           <video id="method-inference" muted loop playsinline height="100%" preload="metadata" class="lazy-video">
             <source src="./static/videos/Inference_in_Real_1080p_compressed.mp4" type="video/mp4">
           </video>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column">
-          <h2 class="title is-2">Real-World Robot Performance</h2>
-          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
-
-          <!-- <h2 class="title is-3">Brush (Zero-Shot)</h2> -->
-          <div class="t">
-            <ul>
-              <li class="brush-item">
-                <div class="brush">
-                  <video poster="" id="brush" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Brush_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <!-- <h2 class="title is-3">Spatula (Zero-Shot)</h2> -->
-          <div class="t">
-            <ul>
-              <li class="spatula-item">
-                <div class="spatula">
-                  <video poster="" id="spatula" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Spatula_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <!-- <h2 class="title is-3">Screwdriver (Zero-Shot)</h2> -->
-          <div class="t">
-            <ul>
-              <li class="screwdriver-item">
-                <div class="screwdriver">
-                  <video poster="" id="screwdriver" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Screwdriver_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <!-- <h2 class="title is-3">Marker (Zero-Shot)</h2> -->
-          <div class="t">
-            <ul>
-              <li class="marker-item">
-                <div class="marker">
-                  <video poster="" id="marker" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Marker_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <!-- <h2 class="title is-3">Eraser (Zero-Shot)</h2> -->
-          <div class="t">
-            <ul>
-              <li class="eraser-item">
-                <div class="eraser">
-                  <video poster="" id="eraser" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Eraser_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <!-- <h2 class="title is-3">Hammer (Zero-Shot)</h2> -->
-          <div class="t">
-            <ul>
-              <li class="hammer-item">
-                <div class="hammer">
-                  <video poster="" id="hammer" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Hammer_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
         </div>
       </div>
     </div>
@@ -309,9 +287,6 @@
       <div class="columns is-centered has-text-centered">
         <div class="column">
           <h2 class="title is-2">Baselines</h2>
-          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
-
-          <!-- <h2 class="title is-3">Baselines</h2> -->
           <div class="t">
             <ul>
               <li class="baselines-item">
@@ -323,7 +298,6 @@
               </li>
             </ul>
           </div>
-
         </div>
       </div>
     </div>
@@ -333,10 +307,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column">
-          <h2 class="title is-2">Failures and Recovery Behavior</h2>
-          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
-
-          <!-- <h2 class="title is-3">Failure Modes</h2> -->
+          <h2 class="title is-2">Failure Modes</h2>
           <div class="t">
             <ul>
               <li class="failure-modes-item">
@@ -348,49 +319,11 @@
               </li>
             </ul>
           </div>
-
-          <!-- <h2 class="title is-3">Robustness and Recovery Behavior</h2> -->
-          <div class="t">
-            <ul>
-              <li class="robustness-and-recovery-behavior-item">
-                <div class="robustness-and-recovery-behavior">
-                  <video poster="" id="robustness-and-recovery-behavior" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Recovery_from_Failures_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
         </div>
       </div>
     </div>
   </section>
-
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column">
-          <h2 class="title is-2">Visualization of Policy Observations</h2>
-          <h2 class="title is-6"> All SimToolReal videos are played at 1x speed.</h2>
-
-          <!-- <h2 class="title is-3">Visualization of Policy Observations</h2> -->
-          <div class="t">
-            <ul>
-              <li class="visualization-of-policy-observations-item">
-                <div class="visualization-of-policy-observations">
-                  <video poster="" id="visualization-of-policy-observations" controls muted loop playsinline preload="metadata" class="lazy-video">
-                    <source src="./static/videos/Visualize_Policy_Observations_1080p_compressed.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
+  -->
 
   <!-- Video
   <section class="section">
@@ -412,7 +345,7 @@
   <section class="section" id="acknowledgements">
     <div class="container is-max-desktop content">
       <h2 class="title">Acknowledgements</h2>
-      <p> This work is supported by Stanford Human-Centered Artificial Intelligence (HAI), ONR Young Investigator Award, the National Science Foundation (NSF) under Grant Numbers 2153854, 2312956, 2327973, and 2342246, and the Natural Sciences and Engineering Research Council of Canada (NSERC) under Award Number 526541680. We thank Sharpa for the donation of the Sharpa hand and for the technical support provided by their team, specifically Kaifeng Zhang, Wenjie Mei, Yi Zhou, Yunfang Yang, Jie Yin, and Jason Lee.
+      <p> This work is supported by Stanford Human-Centered Artificial Intelligence (HAI), ONR Young Investigator Award, the National Science Foundation (NSF) under Grant Numbers 2153854, 2327974, 2312956, 2327973, and 2342246, and the Natural Sciences and Engineering Research Council of Canada (NSERC) under Award Number 526541680. We thank Sharpa for the donation of the Sharpa hand and for the technical support provided by their team, specifically Kaifeng Zhang, Wenjie Mei, Yi Zhou, Yunfang Yang, Jie Yin, and Jason Lee.
       </p>
     </div>
   </section>
@@ -442,6 +375,107 @@
       </div>
     </div>
   </footer>
+
+  <!-- Greatest hits: paused with overlay for 3s, click to unmute, then autoplay muted -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var container = document.querySelector('.greatest-hits-video');
+      var video = document.getElementById('greatest-hits');
+      var overlay = document.getElementById('gh-overlay');
+      var soundIcon = container ? container.querySelector('.gh-sound-icon') : null;
+      if (!container || !video || !overlay) return;
+
+      var overlayDismissed = false;
+      var overlayTimer = null;
+
+      // Dismiss the overlay and start playing (muted or unmuted)
+      function dismissOverlay(unmute) {
+        if (overlayDismissed) return;
+        overlayDismissed = true;
+        if (overlayTimer) { clearTimeout(overlayTimer); overlayTimer = null; }
+
+        if (unmute) {
+          video.muted = false;
+        }
+        video.play().then(function () {
+          overlay.classList.add('fade-out');
+        }).catch(function () {
+          // If unmuted play was blocked, fall back to muted
+          video.muted = true;
+          video.play().then(function () {
+            overlay.classList.add('fade-out');
+          }).catch(function () { });
+        });
+      }
+
+      // Use IntersectionObserver to detect when the video scrolls into view
+      var ghObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !overlayDismissed) {
+            // Video just became visible — start the 3-second countdown
+            overlayTimer = setTimeout(function () {
+              // User didn't interact — play muted
+              dismissOverlay(false);
+            }, 3000);
+            ghObserver.unobserve(video); // only trigger once
+          }
+        });
+      }, { threshold: 0.25 });
+      ghObserver.observe(video);
+
+      // Click overlay → unmute and play (click is a user gesture, so browsers allow it)
+      overlay.addEventListener('click', function () {
+        dismissOverlay(true);
+      });
+
+      // Touch support: tap overlay to unmute and play
+      overlay.addEventListener('touchend', function (e) {
+        e.preventDefault();
+        dismissOverlay(true);
+      });
+
+      // Make the sound icon a clickable mute/unmute toggle (always available)
+      if (soundIcon) {
+        soundIcon.style.pointerEvents = 'auto';
+        soundIcon.style.cursor = 'pointer';
+        soundIcon.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (video.muted) {
+            video.muted = false;
+            soundIcon.classList.add('unmuted');
+          } else {
+            video.muted = true;
+            soundIcon.classList.remove('unmuted');
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Tool category video switcher with smooth transition -->
+  <script>
+    function switchToolVideo(btn) {
+      // Update active button
+      var buttons = document.querySelectorAll('.tool-btn');
+      buttons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      // Swap video source with fade transition
+      var video = document.getElementById('tool-category-video');
+      var source = document.getElementById('tool-category-source');
+      var newSrc = btn.getAttribute('data-video');
+
+      // Fade out
+      video.classList.add('switching');
+      setTimeout(function () {
+        source.setAttribute('src', newSrc);
+        video.load();
+        video.play().catch(function () { /* autoplay may be blocked */ });
+        // Fade back in
+        video.classList.remove('switching');
+      }, 250);
+    }
+  </script>
 
   <!-- Intersection Observer: play videos only when visible -->
   <script>
