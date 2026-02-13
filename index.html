@@ -71,8 +71,7 @@
             </div>
 
             <div class="is-size-5 publication-authors">
-              <span class="author-block">* denotes equal contribution</span> <br>
-              <span class="author-block">† denotes equal advising</span> <br>
+              <span class="author-block">* denotes equal contribution, † denotes equal advising</span> <br>
               <span class="author-block">Stanford University</span> <br>
               <!-- <span class="author-block"><b>Robotics: Science and Systems (RSS) 2026</b></span> -->
             </div>
@@ -157,10 +156,7 @@
               The ability to manipulate tools significantly expands the set of tasks a robot can perform.
               Yet, tool manipulation represents a challenging class of dexterity, requiring grasping thin objects, in-hand object rotations, and forceful interactions.
               Since collecting teleoperation data for these behaviors is challenging, sim-to-real reinforcement learning (RL) is a promising alternative.
-              However, prior approaches typically require substantial engineering effort to model objects and tune reward functions for each task.
-            </p>
-            <p>
-              In this work, we propose <span class="dnerf">SimToolReal</span>, taking a step towards generalizing sim-to-real RL policies for tool manipulation.
+              However, prior approaches typically require substantial engineering effort to model objects and tune reward functions for each task. In this work, we propose <span class="dnerf">SimToolReal</span>, taking a step towards generalizing sim-to-real RL policies for tool manipulation.
               Instead of focusing on a single object and task, we procedurally generate a large variety of tool-like object primitives in simulation and train a single RL policy with the universal goal of manipulating each object to random goal poses.
               This approach enables <span class="dnerf">SimToolReal</span> to perform general dexterous tool manipulation at test-time without any object or task-specific training.
               We demonstrate that <span class="dnerf">SimToolReal</span> outperforms prior retargeting and fixed-grasp methods by 37% while matching the performance of specialist RL policies trained on specific target objects and tasks.
