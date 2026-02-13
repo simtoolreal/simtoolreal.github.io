@@ -131,7 +131,7 @@
 
         <!-- Version 1: 1 Video-->
         <div class="teaser-video">
-          <video id="teaser" autoplay muted loop playsinline height="100%">
+          <video id="teaser-main" autoplay muted loop playsinline height="100%">
             <source src="./static/videos/Collage_and_GraspRotateToolUse_1080p_compressed.mp4" type="video/mp4">
           </video>
         </div>
@@ -184,7 +184,7 @@
             <ul>
               <li class="greatest-hits-item">
                 <div class="greatest-hits">
-                  <video poster="" id="greatest-hits" autoplay controls muted loop playsinline>
+                  <video poster="" id="greatest-hits" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Greatest_Hits.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -203,13 +203,13 @@
         <h2 class="title is-2 has-text-centered">Method</h2>
 
         <div class="train">
-          <video id="teaser" autoplay muted loop playsinline height="100%">
+          <video id="method-train" muted loop playsinline height="100%" preload="metadata" class="lazy-video">
             <source src="./static/videos/Train_in_Sim_1080p_compressed.mp4" type="video/mp4">
           </video>
         </div>
 
         <div class="inference">
-          <video id="teaser" autoplay muted loop playsinline height="100%">
+          <video id="method-inference" muted loop playsinline height="100%" preload="metadata" class="lazy-video">
             <source src="./static/videos/Inference_in_Real_1080p_compressed.mp4" type="video/mp4">
           </video>
         </div>
@@ -230,7 +230,7 @@
             <ul>
               <li class="brush-item">
                 <div class="brush">
-                  <video poster="" id="brush" autoplay controls muted loop playsinline>
+                  <video poster="" id="brush" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Brush_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -243,7 +243,7 @@
             <ul>
               <li class="spatula-item">
                 <div class="spatula">
-                  <video poster="" id="spatula" autoplay controls muted loop playsinline>
+                  <video poster="" id="spatula" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Spatula_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -256,7 +256,7 @@
             <ul>
               <li class="screwdriver-item">
                 <div class="screwdriver">
-                  <video poster="" id="screwdriver" autoplay controls muted loop playsinline>
+                  <video poster="" id="screwdriver" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Screwdriver_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -269,7 +269,7 @@
             <ul>
               <li class="marker-item">
                 <div class="marker">
-                  <video poster="" id="marker" autoplay controls muted loop playsinline>
+                  <video poster="" id="marker" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Marker_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -282,7 +282,7 @@
             <ul>
               <li class="eraser-item">
                 <div class="eraser">
-                  <video poster="" id="eraser" autoplay controls muted loop playsinline>
+                  <video poster="" id="eraser" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Eraser_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -295,7 +295,7 @@
             <ul>
               <li class="hammer-item">
                 <div class="hammer">
-                  <video poster="" id="hammer" autoplay controls muted loop playsinline>
+                  <video poster="" id="hammer" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Hammer_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -320,7 +320,7 @@
             <ul>
               <li class="baselines-item">
                 <div class="baselines">
-                  <video poster="" id="baselines" autoplay controls muted loop playsinline>
+                  <video poster="" id="baselines" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Comparisons_with_Baselines_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -345,7 +345,7 @@
             <ul>
               <li class="failure-modes-item">
                 <div class="failure-modes">
-                  <video poster="" id="failure-modes" autoplay controls muted loop playsinline>
+                  <video poster="" id="failure-modes" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Failures_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -358,7 +358,7 @@
             <ul>
               <li class="robustness-and-recovery-behavior-item">
                 <div class="robustness-and-recovery-behavior">
-                  <video poster="" id="robustness-and-recovery-behavior" autoplay controls muted loop playsinline>
+                  <video poster="" id="robustness-and-recovery-behavior" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Recovery_from_Failures_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -383,7 +383,7 @@
             <ul>
               <li class="visualization-of-policy-observations-item">
                 <div class="visualization-of-policy-observations">
-                  <video poster="" id="visualization-of-policy-observations" autoplay controls muted loop playsinline>
+                  <video poster="" id="visualization-of-policy-observations" controls muted loop playsinline preload="metadata" class="lazy-video">
                     <source src="./static/videos/Visualize_Policy_Observations_1080p_compressed.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -396,7 +396,7 @@
     </div>
   </section>
 
-  <!-- Video -->
+  <!-- Video
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
@@ -404,23 +404,19 @@
           <h2 class="title is-2">Video</h2>
           <div class="publication-video">
             <iframe src="https://www.youtube.com/embed/N0SO7YFG5eU?si=496dSOUjn0Lt8Qtx" frameborder="0"
-              allow="encrypted-media" allowfullscreen></iframe>
+              allow="encrypted-media" allowfullscreen loading="lazy"></iframe>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- Acknowledgements -->
   <!-- Comment out for now -->
   <section class="section" id="acknowledgements">
     <div class="container is-max-desktop content">
       <h2 class="title">Acknowledgements</h2>
-      <p> This work is supported by Stanford Human-Centered Artificial Intelligence (HAI), 
-        the National Science Foundation (NSF) under Grant Numbers 2153854 and 2342246, 
-        and the Natural Sciences and Engineering Research Council of Canada (NSERC) under Award Number 526541680.
-        We thank Sharpa for the donation of the Sharpa hand and for the technical support provided by their team,
-        specifically Kaifeng Zhang, Wenjie Mei, Yi Zhou, Yunfang Yang, Jie Yin, and Jason Lee.
+      <p> This work is supported by Stanford Human-Centered Artificial Intelligence (HAI), ONR Young Investigator Award, the National Science Foundation (NSF) under Grant Numbers 2153854, 2312956, 2327973, and 2342246, and the Natural Sciences and Engineering Research Council of Canada (NSERC) under Award Number 526541680. We thank Sharpa for the donation of the Sharpa hand and for the technical support provided by their team, specifically Kaifeng Zhang, Wenjie Mei, Yi Zhou, Yunfang Yang, Jie Yin, and Jason Lee.
       </p>
     </div>
   </section>
@@ -450,6 +446,41 @@
       </div>
     </div>
   </footer>
+
+  <!-- Intersection Observer: play videos only when visible -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var lazyVideos = document.querySelectorAll('video.lazy-video');
+
+      if ('IntersectionObserver' in window) {
+        var videoObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var video = entry.target;
+            if (entry.isIntersecting) {
+              // Start playing when at least 25% visible
+              video.play().catch(function () {
+                // Autoplay may be blocked by browser; ignore silently
+              });
+            } else {
+              // Pause when scrolled out of view
+              video.pause();
+            }
+          });
+        }, {
+          threshold: 0.25
+        });
+
+        lazyVideos.forEach(function (video) {
+          videoObserver.observe(video);
+        });
+      } else {
+        // Fallback for browsers without IntersectionObserver: just play all
+        lazyVideos.forEach(function (video) {
+          video.play();
+        });
+      }
+    });
+  </script>
 
 </body>
 
