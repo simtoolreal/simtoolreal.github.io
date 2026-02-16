@@ -14,7 +14,7 @@ body {
 .hero.is-fullheight .hero-head,
 .hero.is-fullheight .hero-body {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .hero.is-fullheight .hero-body {
