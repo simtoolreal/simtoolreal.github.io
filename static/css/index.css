@@ -18,7 +18,10 @@ body {
 }
 
 .hero.is-fullheight .hero-body {
-  padding-bottom: 8.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-5vh);
 }
 
 /* ===== End hero ===== */
