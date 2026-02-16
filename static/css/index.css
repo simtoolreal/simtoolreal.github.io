@@ -2,7 +2,26 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 
+/* ===== Hero video overlay ===== */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  pointer-events: none;
+}
 
+.hero.is-fullheight .hero-head,
+.hero.is-fullheight .hero-body {
+  position: relative;
+  z-index: 2;
+}
+
+.hero.is-fullheight .hero-body {
+  padding-bottom: 8.5rem;
+}
+
+/* ===== End hero ===== */
 
 .footer .icon-link {
     font-size: 25px;
@@ -16,27 +35,6 @@ body {
 
 .dnerf {
   font-variant: small-caps;
-}
-
-
-/* Full-bleed cinematic teaser */
-.hero-teaser-fullbleed {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-.teaser-video-wrapper {
-  position: relative;
-  width: 100%;
-  line-height: 0;
-}
-
-.teaser-video-wrapper video {
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 /* Reduce gap between abstract and greatest hits */
