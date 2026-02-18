@@ -234,7 +234,7 @@
       <div class="columns is-centered has-text-centered">
         <div class="column">
           <h2 class="title is-2" style="margin-bottom: 2rem;">Universal Training Objective: Any Goal-Pose Reaching</h2>
-          <h2 class="subtitle is-5" style="text-align: justify; text-align-last: left;">Instead of training on specific objects and tasks, we procedurally generate a large variety of tool-like primitives in simulation and train a single RL policy to manipulate each to random goal poses.</h2>
+          <h2 class="subtitle is-5" style="text-align: justify; text-align-last: left;">Instead of training on specific objects and tasks, we procedurally generate a large variety of tool-like primitives in simulation and train a single RL policy to manipulate each to random goal poses. We show the training environment in the video below, where the green mesh shows the current goal pose that the policy is trying to reach.</h2>
           <div class="approach-video-container">
             <video id="method-train" controls muted loop playsinline preload="metadata" class="lazy-video">
               <!-- <source src="./static/videos/Train_in_Sim_1080p_compressed.mp4" type="video/mp4"> -->
@@ -251,7 +251,7 @@
       <div class="columns is-centered has-text-centered">
         <div class="column">
           <h2 class="title is-2" style="margin-bottom: 2rem;">Inference: Track Any Goal Trajectory on Unseen Tool</h2>
-          <h2 class="subtitle is-5" style="text-align: justify; text-align-last: left;">At test-time, the policy generalizes to unseen real-world tools without any object or task-specific training, tracking goal trajectories zero-shot provided by a human video demonstration.</h2>
+          <h2 class="subtitle is-5" style="text-align: justify; text-align-last: left;">At test-time, the policy generalizes to unseen real-world tools without any object or task-specific training, tracking goal trajectories zero-shot provided by a human video demonstration. The goal poses are shown in the Viser visualization as a green mesh that advances to the next goal once the current one is reached.</h2>
           <div class="approach-video-container">
             <video id="visualization-of-policy-observations" controls muted loop playsinline preload="metadata" class="lazy-video">
               <!-- <source src="./static/videos/Visualize_Policy_Observations_1080p_compressed.mp4" type="video/mp4"> -->
