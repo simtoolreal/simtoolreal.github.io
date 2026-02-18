@@ -13,7 +13,8 @@ body {
 
 .hero.is-fullheight .hero-video {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: 1;
 }
 
