@@ -39,8 +39,8 @@
 <body>
 
   <section class="hero is-link is-fullheight" style="overflow: hidden; position: relative;">
-    <div class="hero-video" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 101%; height: 101%;">
-      <video playsinline autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
+    <div class="hero-video" style="position: absolute; inset: 0; z-index: 1;">
+      <video playsinline webkit-playsinline autoplay muted loop preload="auto" style="width: 100%; height: 100%; object-fit: cover;">
         <source src="./static/videos/TEASER_short.mp4" type="video/mp4">
       </video>
     </div>
@@ -173,11 +173,7 @@
             <div class="gh-overlay" id="gh-overlay">
               <span class="gh-overlay-text">Turn sound on</span>
             </div>
-            <div class="gh-sound-icon">
-              <span class="gh-sound-pulse"></span>
-              <span class="gh-sound-pulse delay"></span>
-              <i class="fas fa-headphones"></i>
-            </div>
+            <div class="gh-speed-badge">1x speed</div>
             <video id="greatest-hits" muted controls loop playsinline preload="auto">
               <source src="./static/videos/Greatest_Hits.mp4" type="video/mp4">
             </video>
@@ -343,7 +339,6 @@
       var container = document.querySelector('.greatest-hits-video');
       var video = document.getElementById('greatest-hits');
       var overlay = document.getElementById('gh-overlay');
-      var soundIcon = container ? container.querySelector('.gh-sound-icon') : null;
       if (!container || !video || !overlay) return;
 
       var overlayDismissed = false;
@@ -394,22 +389,6 @@
         e.preventDefault();
         dismissOverlay(true);
       });
-
-      // Make the sound icon a clickable mute/unmute toggle (always available)
-      if (soundIcon) {
-        soundIcon.style.pointerEvents = 'auto';
-        soundIcon.style.cursor = 'pointer';
-        soundIcon.addEventListener('click', function (e) {
-          e.stopPropagation();
-          if (video.muted) {
-            video.muted = false;
-            soundIcon.classList.add('unmuted');
-          } else {
-            video.muted = true;
-            soundIcon.classList.remove('unmuted');
-          }
-        });
-      }
     });
   </script>
 
