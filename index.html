@@ -233,8 +233,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column">
-          <h2 class="title is-2">Universal Training Objective: Any Goal-Pose Reaching</h2>
-          <h2 class="subtitle is-5">Instead of training on specific objects and tasks, we procedurally generate a large variety of tool-like primitives in simulation and train a single RL policy to manipulate each to random goal poses.</h2>
+          <h2 class="title is-2" style="margin-bottom: 2rem;">Universal Training Objective: Any Goal-Pose Reaching</h2>
+          <h2 class="subtitle is-5" style="text-align: justify; text-align-last: left;">Instead of training on specific objects and tasks, we procedurally generate a large variety of tool-like primitives in simulation and train a single RL policy to manipulate each to random goal poses.</h2>
           <div class="approach-video-container">
             <video id="method-train" controls muted loop playsinline preload="metadata" class="lazy-video">
               <!-- <source src="./static/videos/Train_in_Sim_1080p_compressed.mp4" type="video/mp4"> -->
@@ -250,8 +250,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column">
-          <h2 class="title is-2">Inference: Track Any Goal Trajectory on Unseen Tool</h2>
-          <h2 class="subtitle is-5">At test-time, the policy generalizes to unseen real-world tools without any object or task-specific training, tracking goal trajectories zero-shot provided by a human video demonstration.</h2>
+          <h2 class="title is-2" style="margin-bottom: 2rem;">Inference: Track Any Goal Trajectory on Unseen Tool</h2>
+          <h2 class="subtitle is-5" style="text-align: justify; text-align-last: left;">At test-time, the policy generalizes to unseen real-world tools without any object or task-specific training, tracking goal trajectories zero-shot provided by a human video demonstration.</h2>
           <div class="approach-video-container">
             <video id="visualization-of-policy-observations" controls muted loop playsinline preload="metadata" class="lazy-video">
               <!-- <source src="./static/videos/Visualize_Policy_Observations_1080p_compressed.mp4" type="video/mp4"> -->
@@ -268,8 +268,11 @@
       <div class="columns is-centered has-text-centered">
         <div class="column">
           <h2 class="title is-2" style="margin-bottom: 2rem;">Introducing DexToolBench:<br>A Benchmark for Dexterous Tool-Use</h2>
-          <p class="subtitle is-5" style="color: #666; margin-bottom: 1.5rem;">
+          <p class="subtitle is-5" style="color: #666; margin-bottom: 0.75rem; text-align: justify; text-align-last: left;">
             We release a benchmark for evaluating policies on diverse tool-use tasks spanning 6 tool categories, 12 object instances, and 24 task trajectories. All evaluations are zero-shot: we never train on the target object or task in simulation. We open-source all simulation assets, training, and evaluation code on <a href="https://github.com/tylerlum/simtoolreal">GitHub</a>.
+          </p>
+          <p class="subtitle is-5" style="color: #666; margin-bottom: 1.5rem; text-align: justify; text-align-last: left;">
+            <strong>Demo overview:</strong> We provide a web-based Viser interface where users can select the tool category, object instance, and task. The policy then tracks the corresponding goal trajectory in Isaac Gym. Each timestep goal is shown as a green mesh, and once the object reaches the current goal, the next goal is issued.
           </p>
           <div class="approach-video-container">
             <video id="dextoolbench-demo" controls muted loop playsinline preload="metadata" class="lazy-video">
@@ -307,17 +310,18 @@
     </div>
   </section>
 
-  <!-- BibTeX -->
-  <!-- Comment out for now -->
-<!-- 
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@misc{TODO,
+      <pre><code>@misc{kedia2026simtoolreal,
+        author = {Kushal Kedia and Tyler Ga Wei Lum and Jeannette Bohg and C. Karen Liu},
+        title = {SimToolReal: An Object-Centric Policy for Zero-Shot Dexterous Tool Manipulation},
+        year = {2026},
+        archivePrefix = {arXiv},
+        primaryClass = {cs.RO},
       }</code></pre>
     </div>
   </section>
- -->
 
   <footer class="footer">
     <div class="container">
