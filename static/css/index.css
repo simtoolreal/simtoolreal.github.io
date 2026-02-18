@@ -13,8 +13,7 @@ body {
 
 .hero.is-fullheight .hero-video {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: 1;
 }
 
@@ -23,20 +22,6 @@ body {
   height: 100%;
   display: block;
   object-fit: cover;
-}
-
-.hero.is-fullheight .hero-video-desktop {
-  height: 100%;
-  width: 177.77777778vh;
-  min-width: 100%;
-  min-height: 56.25vw;
-}
-
-.hero.is-fullheight .hero-video-mobile {
-  height: 154.28571428vw;
-  width: 100%;
-  min-width: 64.81481481vh;
-  min-height: 100%;
 }
 
 .hero.is-fullheight .hero-head,
