@@ -272,7 +272,7 @@
             We release a benchmark for evaluating policies on diverse tool-use tasks spanning 6 tool categories, 12 object instances, and 24 task trajectories. All evaluations are zero-shot: we never train on the target object or task in simulation. We open-source all simulation assets, training, and evaluation code on <a href="https://github.com/tylerlum/simtoolreal">GitHub</a>.
           </p>
           <p class="subtitle is-5" style="color: #666; margin-bottom: 1.5rem; text-align: justify; text-align-last: left;">
-            <strong>Demo overview:</strong> We provide a web-based Viser interface where users can select the tool category, object instance, and task. The policy then tracks the corresponding goal trajectory in Isaac Gym. Each timestep goal is shown as a green mesh, and once the object reaches the current goal, the next goal is issued.
+            <strong>Demo overview:</strong> In a web-based Viser UI, users pick a tool category, instance, and task. The policy tracks the resulting goal trajectory in Isaac Gym, visualizing the current goal as a green mesh and advancing to the next goal upon success.
           </p>
           <div class="approach-video-container">
             <video id="dextoolbench-demo" controls muted loop playsinline preload="metadata" class="lazy-video">
