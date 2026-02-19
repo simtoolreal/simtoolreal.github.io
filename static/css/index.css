@@ -2,7 +2,7 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 
-/* ===== Hero video overlay ===== */
+/* ===== Hero banner with background video ===== */
 .overlay {
   position: absolute;
   inset: 0;
@@ -11,7 +11,12 @@ body {
   pointer-events: none;
 }
 
-.hero.is-fullheight .hero-video {
+.hero-banner {
+  position: relative;
+  aspect-ratio: 5 / 3;
+}
+
+.hero-banner .hero-bg-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,24 +26,35 @@ body {
   overflow: hidden;
 }
 
-.hero.is-fullheight .hero-video video {
+.hero-banner .hero-bg-video video {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
 }
 
-.hero.is-fullheight .hero-head,
-.hero.is-fullheight .hero-body {
-  position: relative;
+.hero-banner .hero-head,
+.hero-banner .hero-body {
+  position: absolute;
+  left: 0;
+  right: 0;
   z-index: 3;
 }
 
-.hero.is-fullheight .hero-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-5vh);
+.hero-banner .hero-head {
+  top: 0;
+}
+
+.hero-banner .hero-body {
+  top: 50%;
+  transform: translateY(-55%);
+}
+
+@media screen and (max-width: 768px) {
+  .hero-banner {
+    aspect-ratio: auto;
+    min-height: 100vh;
+  }
 }
 
 /* ===== End hero ===== */
