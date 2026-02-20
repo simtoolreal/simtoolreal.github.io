@@ -120,23 +120,6 @@ body {
   pointer-events: none;
 }
 
-/* Speed badge in top-right corner */
-.gh-speed-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 11;
-  background: #000;
-  color: #fff;
-  border: none;
-  border-radius: 2px;
-  padding: 0.65rem 1.2rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  pointer-events: none;
-}
 
 .greatest-hits-video video {
   width: 100%;
