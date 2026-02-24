@@ -101,7 +101,7 @@
         <div class="column has-text-centered is-hidden-tablet">
           <div class="publication-links">
             <span class="link-block">
-              <a href="https://simtoolreal.github.io" class="external-link button is-normal is-rounded is-dark">
+              <a href="https://www.arxiv.org/abs/2602.16863" class="external-link button is-normal is-rounded is-dark">
                 <span class="icon"><i class="ai ai-arxiv"></i></span>
                 <span>arXiv</span>
               </a>
@@ -123,6 +123,8 @@
       </div>
     </div>
   </section>
+
+  <p class="subtitle is-5" style="text-align: center; color: #888; margin-top: 0.8rem; font-family: 'Times New Roman', Times, serif;"><em>All videos are 1× speed (60 Hz control).</em></p>
 
   <section class="section" style="padding-top: 3rem; padding-bottom: 2rem;">
     <div class="container is-max-desktop">
@@ -362,6 +364,13 @@
         if (unmute) {
           video.muted = false;
         }
+
+        // Briefly block pointer events to absorb the stray synthetic click
+        // that mobile browsers fire after touchend, which would otherwise
+        // hit the native video controls and toggle pause.
+        container.style.pointerEvents = 'none';
+        setTimeout(function () { container.style.pointerEvents = ''; }, 400);
+
         video.play().then(function () {
           overlay.classList.add('fade-out');
         }).catch(function () {
