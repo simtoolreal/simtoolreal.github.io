@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Interactive MuJoCo Demo">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Demo | SimToolReal</title>
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script>
+    (function () {
+      const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+      if (isMobile && !window.location.pathname.endsWith("/demo-mobile.html")) {
+        window.location.replace("./demo-mobile.html");
+      }
+    })();
+  </script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overscroll-behavior: none;
+    }
+    body {
+      overflow: hidden;
+      background: #0f172a;
+      touch-action: none;
+    }
+    .demo-glass {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .demo-display-container {
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 900px) {
+      .desktop-only { display: none !important; }
+    }
+    .mobile-only { display: none; }
+    @media (max-width: 900px) {
+      .mobile-only { display: flex; }
+    }
+    .mobile-controls {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 24px;
+      pointer-events: none;
+    }
+    .control-button {
+      pointer-events: auto;
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0f172a;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+    }
+    .control-button:active { transform: scale(0.95); }
+    .action-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .dpad {
+      display: grid;
+      grid-template-columns: 64px 64px 64px;
+      grid-template-rows: 64px 64px 64px;
+      gap: 6px;
+      pointer-events: none;
+    }
+    .action-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      pointer-events: none;
+    }
+    .label-pill {
+      position: absolute;
+      right: 16px;
+      top: 14px;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+      max-width: calc(100vw - 32px);
+      text-align: right;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="section interactive-demo-section" style="background-color: #0f172a; min-height: 100vh; padding: 0;">
+    <div class="demo-display-container" style="height: 100vh; width: 100vw; position: relative; overflow: hidden;">
+      <iframe
+        id="demoFrame"
+        loading="lazy"
+        style="width: 100%; height: 100%; border: none;"
+        title="SimToolReal MuJoCo Web Demo">
+        Your browser does not support iframes.
+      </iframe>
+      <script>
+        (function () {
+          const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+          document.getElementById('demoFrame').src = isMobile
+            ? './mujoco_wasm/dist-mobile/index.html'
+            : './mujoco_wasm/dist-desktop/index.html';
+        })();
+      </script>
+
+
+      <div class="desktop-only" style="position: absolute; left: 50%; top: 6px; transform: translateX(-50%); white-space: nowrap; background: rgba(255, 243, 205, 0.96); padding: 0.65rem 1rem; border-radius: 999px; border: 1px solid #e6c84c; box-shadow: 0 6px 18px rgba(230, 200, 76, 0.28);">
+        <div style="font-size: 1.1rem; line-height: 1.45; color: #0f172a; text-align: center;">
+          💡 If keypresses aren't registering, click anywhere on the simulator to focus it first.
+        </div>
+      </div>
+      <div class="demo-glass desktop-only" style="position: absolute; right: 16px; bottom: 16px; padding: 1rem 1.25rem; border-radius: 14px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2); max-width: 450px;">
+        <h3 class="title is-5" style="margin-bottom: 0.6rem; color: #333;">🎮 Controls</h3>
+        <div style="font-size: 1.2rem; line-height: 1.5; color: #444;">
+          <div style="font-weight: 700; margin-bottom: 0.3rem;">Simulation</div>
+          <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center; margin-bottom: 0.6rem;">
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">BACKSPACE</kbd>
+            <span>Reset simulation</span>
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">SPACE</kbd>
+            <span>Pause</span>
+          </div>
+          <div style="font-weight: 700; margin-bottom: 0.3rem;">Goal (green)</div>
+          <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center; margin-bottom: 0.6rem;">
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">R</kbd>
+            <span>Randomize goal pose</span>
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">↑ / ↓</kbd>
+            <span>Move goal fwd / back</span>
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">← / →</kbd>
+            <span>Move goal left / right</span>
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">[ / ]</kbd>
+            <span>Move goal down / up</span>
+          </div>
+          <div style="font-weight: 700; margin-bottom: 0.3rem;">Object (grey)</div>
+          <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center;">
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">W / S</kbd>
+            <span>Teleport object fwd / back</span>
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">A / D</kbd>
+            <span>Teleport object left / right</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile-only label -->
+      <div class="demo-glass label-pill mobile-only">
+        💡 Press buttons to move / randomize goal or reset sim
+      </div>
+
+      <!-- Mobile-only bottom controls -->
+      <div class="mobile-controls mobile-only">
+        <!-- Left side: D-pad for goal movement -->
+        <div class="dpad">
+          <div></div>
+          <div class="demo-glass control-button" data-key="ArrowUp" aria-label="Goal fwd" role="button">▲</div>
+          <div></div>
+          <div class="demo-glass control-button" data-key="ArrowLeft" aria-label="Goal left" role="button">◀</div>
+          <div></div>
+          <div class="demo-glass control-button" data-key="ArrowRight" aria-label="Goal right" role="button">▶</div>
+          <div></div>
+          <div class="demo-glass control-button" data-key="ArrowDown" aria-label="Goal back" role="button">▼</div>
+          <div></div>
+        </div>
+        <!-- Right side: Randomize + Reset -->
+        <div class="action-cluster">
+          <div class="demo-glass control-button action-button" data-key="r" aria-label="Randomize goal" role="button">Random<br>Goal</div>
+          <div class="demo-glass control-button action-button" data-key="Backspace" aria-label="Reset simulation" role="button">Reset<br>Sim</div>
+        </div>
+      </div>
+
+      <a class="button is-light is-rounded" href="./index.html" style="position: absolute; left: 16px; top: 16px;">← Back to main page</a>
+    </div>
+  </section>
+
+  <script>
+    function triggerDemoReload() {
+      const frame = document.getElementById('demoFrame');
+      if (!frame || !frame.contentWindow) {
+        return;
+      }
+      const frameDoc = frame.contentDocument || frame.contentWindow.document;
+      if (frameDoc) {
+        const buttons = Array.from(frameDoc.querySelectorAll('button'));
+        const reloadButton = buttons.find((btn) => btn.textContent && btn.textContent.trim() === 'Reload');
+        if (reloadButton) {
+          reloadButton.click();
+          return;
+        }
+      }
+      const down = new KeyboardEvent('keydown', {
+        key: 'l',
+        code: 'KeyL',
+        ctrlKey: true,
+        bubbles: true,
+        cancelable: true
+      });
+      const up = new KeyboardEvent('keyup', {
+        key: 'l',
+        code: 'KeyL',
+        ctrlKey: true,
+        bubbles: true,
+        cancelable: true
+      });
+      frame.contentWindow.dispatchEvent(down);
+      frame.contentWindow.dispatchEvent(up);
+    }
+
+    const frame = document.getElementById('demoFrame');
+    function sendKey(type, key) {
+      if (!frame || !frame.contentWindow) { return; }
+      const event = new KeyboardEvent(type, {
+        key,
+        code: key.startsWith('Arrow') ? key : (key === 'Backspace' ? 'Backspace' : ('Key' + key.toUpperCase())),
+        bubbles: true,
+        cancelable: true
+      });
+      frame.contentWindow.document.dispatchEvent(event);
+    }
+    function bindButton(button) {
+      const key = button.getAttribute('data-key');
+      if (!key) { return; }
+      const down = (e) => { e.preventDefault(); sendKey('keydown', key); };
+      const up   = (e) => { e.preventDefault(); sendKey('keyup',   key); };
+      button.addEventListener('touchstart',  down, { passive: false });
+      button.addEventListener('touchend',    up,   { passive: false });
+      button.addEventListener('touchcancel', up,   { passive: false });
+      button.addEventListener('pointerdown', down);
+      button.addEventListener('pointerup',   up);
+      button.addEventListener('pointerleave', up);
+    }
+    document.querySelectorAll('.control-button').forEach(bindButton);
+  </script>
+</body>
+</html>

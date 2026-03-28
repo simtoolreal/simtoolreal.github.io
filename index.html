@@ -154,6 +154,106 @@
     </div>
   </section>
 
+  <section class="section greatest-hits-section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-2">SimToolReal in Action (Sound On 🔊)</h2>
+          <h2 class="subtitle is-5">Zero-shot dexterous manipulation across unseen tools and tasks</h2>
+          <div class="greatest-hits-video">
+            <div class="gh-overlay" id="gh-overlay">
+              <span class="gh-overlay-text">Turn sound on</span>
+            </div>
+            <video id="greatest-hits" muted controls loop playsinline preload="auto">
+              <source src="./static/videos/Greatest_Hits_1x.mp4" type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container">
+      <div class="has-text-centered">
+        <h2 class="title is-2">Interactive Browser Demo</h2>
+        <p class="subtitle is-5" style="max-width: 700px; margin: 0 auto 1.5rem;">
+          See the SimToolReal policy running in a real-time MuJoCo simulation, fully in your browser.
+          The demo may take a few seconds to load as models and assets are streamed.
+        </p>
+        <div style="margin-bottom: 2rem;">
+          <a href="./demo.html" class="button is-rounded is-medium" style="background-color: #209CEE; color: white; border-color: #209CEE; font-weight: 600;" onclick="event.preventDefault(); openDemo();">
+            🎮 Open Interactive Demo
+          </a>
+        </div>
+      </div>
+
+      <div class="columns is-centered is-hidden-mobile" style="margin-bottom: 1rem;">
+        <div class="column is-10">
+          <div style="max-width: 900px; margin: 0 auto; background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%); border: 2px solid #e6c84c; border-radius: 12px; padding: 1rem 1.25rem; box-shadow: 0 2px 8px rgba(230, 200, 76, 0.25);">
+            <p style="font-size: 1rem; line-height: 1.7; color: #333; margin: 0; text-align: center;">
+              <strong style="font-size: 1.05rem; color: #8b6914;">💡 Tips:</strong>
+              <br>1️⃣ Press <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">R</kbd> to randomize the goal pose, or use <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">↑</kbd> <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">↓</kbd> <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">←</kbd> <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">→</kbd> to nudge it step-by-step.
+              <br>2️⃣ Press <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">W</kbd> / <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">A</kbd> / <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">S</kbd> / <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">D</kbd> to teleport the object to a new position on the table.
+              <br>3️⃣ If the object falls off the table or the policy struggles, press <kbd style="background: #fff; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid #ddd;">BACKSPACE</kbd> to restart.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-centered is-hidden-mobile">
+        <div class="column is-11">
+          <div class="demo-display-container" style="box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); border-radius: 10px; overflow: hidden; position: relative;">
+            <iframe
+              src="./mujoco_wasm/dist-desktop/index.html"
+              loading="lazy"
+              style="width: 100%; height: 700px; border: none;"
+              title="SimToolReal MuJoCo Web Demo">
+              Your browser does not support iframes.
+            </iframe>
+
+            <div style="position: absolute; left: 50%; top: 6px; transform: translateX(-50%); white-space: nowrap; background: rgba(255, 243, 205, 0.96); padding: 0.65rem 1rem; border-radius: 999px; border: 1px solid #e6c84c; box-shadow: 0 6px 18px rgba(230, 200, 76, 0.28);">
+              <div style="font-size: 1rem; line-height: 1.45; color: #0f172a; text-align: center;">
+                💡 If keypresses aren't registering, click anywhere on the simulator to focus it first.
+              </div>
+            </div>
+            <div style="position: absolute; right: 16px; bottom: 16px; background: rgba(255, 255, 255, 0.92); padding: 1rem 1.25rem; border-radius: 10px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14); max-width: 380px;">
+              <h3 class="title is-5" style="margin-bottom: 0.6rem; color: #333;">🎮 Controls</h3>
+              <div style="font-size: 0.9rem; line-height: 1.5; color: #444;">
+                <div style="font-weight: 700; margin-bottom: 0.3rem;">Simulation</div>
+                <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center; margin-bottom: 0.5rem;">
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">BACKSPACE</kbd>
+                  <span>Reset simulation</span>
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">SPACE</kbd>
+                  <span>Pause</span>
+                </div>
+                <div style="font-weight: 700; margin-bottom: 0.3rem;">Goal (green)</div>
+                <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center; margin-bottom: 0.5rem;">
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">R</kbd>
+                  <span>Randomize goal pose</span>
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">↑ / ↓</kbd>
+                  <span>Move goal fwd / back</span>
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">← / →</kbd>
+                  <span>Move goal left / right</span>
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">[ / ]</kbd>
+                  <span>Move goal down / up</span>
+                </div>
+                <div style="font-weight: 700; margin-bottom: 0.3rem;">Object (grey)</div>
+                <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center;">
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">W / S</kbd>
+                  <span>Teleport object fwd / back</span>
+                  <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">A / D</kbd>
+                  <span>Teleport object left / right</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Abstract. -->
@@ -175,26 +275,6 @@
         </div>
       </div>
       <!--/ Abstract. -->
-  </section>
-
-  <section class="section greatest-hits-section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column">
-          <h2 class="title is-2">SimToolReal in Action (Sound On 🔊)</h2>
-          <h2 class="subtitle is-5">Zero-shot dexterous manipulation across unseen tools and tasks</h2>
-          <div class="greatest-hits-video">
-            <div class="gh-overlay" id="gh-overlay">
-              <span class="gh-overlay-text">Turn sound on</span>
-            </div>
-            <video id="greatest-hits" muted controls loop playsinline preload="auto">
-              <source src="./static/videos/Greatest_Hits_1x.mp4" type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
-    </div>
   </section>
 
   <section class="section tool-category-section">
@@ -355,6 +435,13 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    function openDemo() {
+      const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+      window.open(isMobile ? './demo-mobile.html' : './demo.html', '_blank');
+    }
+  </script>
 
   <!-- Greatest hits: paused with overlay for 3s, click to unmute, then autoplay muted -->
   <script>

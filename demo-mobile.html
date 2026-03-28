@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Interactive MuJoCo Demo (Mobile Controls)">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Interactive Demo (Mobile) | SimToolReal</title>
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <script>
+    (function () {
+      const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+      if (!isMobile && !window.location.pathname.endsWith("/demo.html")) {
+        window.location.replace("./demo.html");
+      }
+    })();
+  </script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overscroll-behavior: none;
+    }
+    body {
+      overflow: hidden;
+      background: #0f172a;
+      touch-action: none;
+    }
+    .demo-glass {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .mobile-controls {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 24px;
+      pointer-events: none;
+    }
+    .control-button {
+      pointer-events: auto;
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0f172a;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+    }
+    .control-button:active {
+      transform: scale(0.95);
+    }
+    .action-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .dpad {
+      display: grid;
+      grid-template-columns: 64px 64px 64px;
+      grid-template-rows: 64px 64px 64px;
+      gap: 6px;
+      pointer-events: none;
+    }
+    .action-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      pointer-events: none;
+    }
+    .label-pill {
+      position: absolute;
+      right: 16px;
+      top: 14px;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+      max-width: calc(100vw - 32px);
+      text-align: right;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="section" style="background-color: #0f172a; min-height: 100vh; padding: 0;">
+    <div class="demo-display-container" style="height: 100vh; width: 100vw; position: relative; overflow: hidden;">
+      <iframe
+        id="demoFrame"
+        src="./mujoco_wasm/dist-mobile/index.html"
+        loading="lazy"
+        style="width: 100%; height: 100%; border: none;"
+        title="SimToolReal MuJoCo Web Demo">
+        Your browser does not support iframes.
+      </iframe>
+
+      <div class="demo-glass label-pill">
+        💡 Press buttons to move / randomize goal or reset sim
+      </div>
+
+      <!-- Bottom controls -->
+      <div class="mobile-controls">
+
+        <!-- Left side: D-pad for object teleport (W/A/S/D) -->
+        <div class="dpad">
+          <!-- Row 1 -->
+          <div></div>
+          <div class="demo-glass control-button" data-key="ArrowUp" aria-label="Goal fwd" role="button">▲</div>
+          <div></div>
+          <!-- Row 2 -->
+          <div class="demo-glass control-button" data-key="ArrowLeft" aria-label="Goal left" role="button">◀</div>
+          <div></div>
+          <div class="demo-glass control-button" data-key="ArrowRight" aria-label="Goal right" role="button">▶</div>
+          <!-- Row 3 -->
+          <div></div>
+          <div class="demo-glass control-button" data-key="ArrowDown" aria-label="Goal back" role="button">▼</div>
+          <div></div>
+        </div>
+
+        <!-- Right side: Randomize + Reset -->
+        <div class="action-cluster">
+          <div class="demo-glass control-button action-button" data-key="r" aria-label="Randomize goal" role="button">Random<br>Goal</div>
+          <div class="demo-glass control-button action-button" data-key="Backspace" aria-label="Reset simulation" role="button">Reset<br>Sim</div>
+        </div>
+
+      </div>
+
+      <a class="button is-light is-rounded" href="./index.html" style="position: absolute; left: 16px; top: 16px;">← Back</a>
+    </div>
+  </section>
+
+  <script>
+    const frame = document.getElementById("demoFrame");
+
+    function sendKey(type, key) {
+      if (!frame || !frame.contentWindow) {
+        return;
+      }
+      const event = new KeyboardEvent(type, {
+        key,
+        code: key.startsWith('Arrow') ? key : (key === 'Backspace' ? 'Backspace' : ('Key' + key.toUpperCase())),
+        bubbles: true,
+        cancelable: true
+      });
+      frame.contentWindow.document.dispatchEvent(event);
+    }
+
+    function bindButton(button) {
+      const key = button.getAttribute("data-key");
+      if (!key) {
+        return;
+      }
+      const down = (e) => {
+        e.preventDefault();
+        sendKey("keydown", key);
+      };
+      const up = (e) => {
+        e.preventDefault();
+        sendKey("keyup", key);
+      };
+      button.addEventListener("touchstart", down, { passive: false });
+      button.addEventListener("touchend", up, { passive: false });
+      button.addEventListener("touchcancel", up, { passive: false });
+      button.addEventListener("pointerdown", down);
+      button.addEventListener("pointerup", up);
+      button.addEventListener("pointerleave", up);
+    }
+
+    document.querySelectorAll(".control-button").forEach(bindButton);
+  </script>
+</body>
+</html>
