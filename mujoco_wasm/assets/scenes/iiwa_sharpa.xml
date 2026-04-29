@@ -15,6 +15,7 @@
 
   <default>
     <default class="iiwa">
+      <body gravcomp="1"/>
       <material shininess="0.25"/>
       <site size="0.001 0.005 0.005" group="4" rgba="1 0 0 1"/>
       <default class="joint1">

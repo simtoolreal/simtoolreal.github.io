@@ -154,17 +154,19 @@
             <span>Reset simulation</span>
             <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">SPACE</kbd>
             <span>Pause</span>
+            <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">X</kbd>
+            <span>Toggle object/goal axes</span>
           </div>
           <div style="font-weight: 700; margin-bottom: 0.3rem;">Goal (green)</div>
           <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center; margin-bottom: 0.6rem;">
             <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">R</kbd>
             <span>Randomize goal pose</span>
             <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">↑ / ↓</kbd>
-            <span>Move goal fwd / back</span>
+            <span>Move goal up / down</span>
             <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">← / →</kbd>
             <span>Move goal left / right</span>
             <kbd style="background: #f0f0f0; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: bold; justify-self: start;">[ / ]</kbd>
-            <span>Move goal down / up</span>
+            <span>Move goal fwd / back</span>
           </div>
           <div style="font-weight: 700; margin-bottom: 0.3rem;">Object (grey)</div>
           <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; align-items: center;">
@@ -186,18 +188,21 @@
         <!-- Left side: D-pad for goal movement -->
         <div class="dpad">
           <div></div>
-          <div class="demo-glass control-button" data-key="ArrowUp" aria-label="Goal fwd" role="button">↑</div>
+          <div class="demo-glass control-button" data-key="ArrowUp" aria-label="Goal up" role="button">↑</div>
           <div></div>
           <div class="demo-glass control-button" data-key="ArrowLeft" aria-label="Goal left" role="button">←</div>
           <div></div>
           <div class="demo-glass control-button" data-key="ArrowRight" aria-label="Goal right" role="button">→</div>
           <div></div>
-          <div class="demo-glass control-button" data-key="ArrowDown" aria-label="Goal back" role="button">↓</div>
+          <div class="demo-glass control-button" data-key="ArrowDown" aria-label="Goal down" role="button">↓</div>
           <div></div>
         </div>
         <!-- Right side: Randomize + Reset -->
         <div class="action-cluster">
+          <div class="demo-glass control-button action-button" data-key="[" aria-label="Goal fwd" role="button">Goal<br>Fwd</div>
+          <div class="demo-glass control-button action-button" data-key="]" aria-label="Goal back" role="button">Goal<br>Back</div>
           <div class="demo-glass control-button action-button" data-key="r" aria-label="Randomize goal" role="button">Random<br>Goal</div>
+          <div class="demo-glass control-button action-button" data-key="x" aria-label="Toggle object and goal axes" role="button">Toggle<br>Axes</div>
           <div class="demo-glass control-button action-button" data-key="Backspace" aria-label="Reset simulation" role="button">Reset<br>Sim</div>
         </div>
       </div>
@@ -244,7 +249,7 @@
       if (!frame || !frame.contentWindow) { return; }
       const event = new KeyboardEvent(type, {
         key,
-        code: key.startsWith('Arrow') ? key : (key === 'Backspace' ? 'Backspace' : ('Key' + key.toUpperCase())),
+        code: key.startsWith('Arrow') ? key : (key === 'Backspace' ? 'Backspace' : (key === '[' ? 'BracketLeft' : (key === ']' ? 'BracketRight' : ('Key' + key.toUpperCase())))),
         bubbles: true,
         cancelable: true
       });
