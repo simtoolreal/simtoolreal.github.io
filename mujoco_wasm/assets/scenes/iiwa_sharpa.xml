@@ -350,7 +350,7 @@
 
     <!-- Table: 47.5cm x 40cm x 30cm, top surface at z=0.53 -->
     <body name="table" pos="0 0 0.38">
-      <geom name="table_geom" type="box" size="0.2375 0.2 0.15" rgba="1 1 1 1" friction="1 0.005 0.0001"/>
+      <geom name="table_geom" type="box" size="0.2375 0.2 0.15" rgba="1 1 1 1" friction="1 0.005 0.0001" condim="6"/>
     </body>
     <!-- Object: capsule hammer (handle + head) -->
     <body name="object" pos="0 0 0.545">

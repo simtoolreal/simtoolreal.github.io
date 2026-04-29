@@ -189,9 +189,8 @@ Important contact/friction settings:
 - The physical object geoms both use `condim="6"`:
   - `object_handle_geom`: box handle, `density="400"`, `condim="6"`.
   - `object_head_geom`: capsule head, `density="300"`, `condim="6"`.
-- The table uses `friction="1 0.005 0.0001"`.
-- The table does not currently specify `condim`, so it uses MuJoCo's default
-  contact dimensionality unless paired with a geom requesting higher-dimensional
+- The table uses `friction="1 0.005 0.0001"` and `condim="6"` so object/table
+  contacts use the same richer contact dimensionality as fingertip/object
   contacts.
 - The green goal object is mocap/visual-only with `contype="0"` and
   `conaffinity="0"` on both goal geoms.
