@@ -55,6 +55,11 @@ body {
     aspect-ratio: auto;
     min-height: 100vh;
   }
+
+  .hero-banner .hero-body h1.title.publication-title {
+    margin-bottom: 0.9rem !important;
+    line-height: 1.05;
+  }
 }
 
 /* ===== End hero ===== */
