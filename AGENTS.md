@@ -147,6 +147,112 @@ Expected:
 - unique body gravcomp values: `[0.0, 1.0]`
 - gravity: `[0, 0, -9.81]`
 
+## MuJoCo Physics Settings That Matter
+
+The browser demo currently works well with several non-default or easy-to-miss
+MuJoCo settings in `mujoco_wasm/assets/scenes/iiwa_sharpa.xml`. Treat these as
+intentional unless there is a strong reason and a visual/policy regression check.
+
+### Solver and Contact Model
+
+The top-level option is:
+
+```xml
+<option timestep="0.001"
+        integrator="implicitfast"
+        cone="elliptic"
+        impratio="10"
+        gravity="0 0 -9.81"/>
+```
+
+Key choices:
+
+- `timestep="0.001"`: physics runs at 1 kHz. The policy still updates around
+  60 Hz by decimating MuJoCo steps in JS.
+- `integrator="implicitfast"`: this is more forgiving for the stiff PD servos
+  and contact-heavy hand/object interactions than a simple explicit integrator.
+- `cone="elliptic"`: uses MuJoCo's smooth elliptic friction cone, which matters
+  for stable sliding/rolling/grasping behavior.
+- `impratio="10"`: raises tangential/frictional constraint impedance relative
+  to normal constraints. This appears important for making fingertip/object
+  contacts feel grippy enough without making all contacts unrealistically rigid.
+- `gravity="0 0 -9.81"`: gravity is explicit. Do not disable gravity globally;
+  robot support comes from body `gravcomp`, while the object and table remain
+  normal gravity bodies.
+
+### Contact Dimensions and Friction
+
+Important contact/friction settings:
+
+- Fingertip elastomer geoms inherit `condim="6"` through
+  `class="palmelastomer_geom"`.
+- The physical object geoms both use `condim="6"`:
+  - `object_handle_geom`: box handle, `density="400"`, `condim="6"`.
+  - `object_head_geom`: capsule head, `density="300"`, `condim="6"`.
+- The table uses `friction="1 0.005 0.0001"`.
+- The table does not currently specify `condim`, so it uses MuJoCo's default
+  contact dimensionality unless paired with a geom requesting higher-dimensional
+  contacts.
+- The green goal object is mocap/visual-only with `contype="0"` and
+  `conaffinity="0"` on both goal geoms.
+
+`condim="6"` enables richer contact constraints than the default, including
+torsional/rolling friction components. That is plausible part of why the browser
+demo looks better for in-hand manipulation than a default 3D point-contact setup.
+
+### Collision Filtering
+
+The scene has a large `<contact>` block of `exclude` pairs for adjacent robot and
+hand links. This is not decorative: without these excludes, local self-collisions
+inside the arm/hand chain can dominate the sim, destabilize the hand, or make the
+policy fight impossible contacts.
+
+Also note the visual/collision split:
+
+- Visual robot meshes generally have `contype="0" conaffinity="0"` and
+  `density="0"` where appropriate.
+- Collision geoms are in group `3`.
+- The goal is collision-disabled.
+
+### Robot Dynamics and Actuation
+
+Important robot settings:
+
+- Every robot body from `base` through the hand/fingers has `gravcomp="1"`.
+  Table/object/goal do not.
+- Sharpa joint defaults include nonzero `armature`, tiny viscous `damping`, and
+  `frictionloss` values:
+  - CMC: `armature="0.0032"`, `damping="4.2e-05"`, `frictionloss="0.132"`
+  - PCMC: `armature="0.00012"`, `damping="4.2e-05"`, `frictionloss="0.012"`
+  - MCP: `armature="0.00265"`, `damping="2.38e-05"`, `frictionloss="0.07456"`
+  - PIP: `armature="0.0006"`, `damping="4.06e-06"`, `frictionloss="0.01276"`
+  - DIP: `armature="0.00042"`, `damping="1.21e-06"`, `frictionloss="0.00378738"`
+- The 29 actuators are `general` actuators with `biastype="affine"`, configured
+  as PD-like position servos by `gainprm` and `biasprm`.
+- IIWA gains are high: `600, 600, 500, 400, 200, 200, 200` with damping terms
+  around `27.03, 27.03, 24.67, 22.07, 9.75, 9.15, 9.15`.
+- Hand gains are much smaller and match the Sharpa joint class values, for
+  example `6.95`, `13.2`, `4.76`, `6.62`, `0.9`, and `1.38` for pinky CMC.
+
+These gains are coupled to the policy's target-generation code. Changing XML
+actuator gains can make the same policy look much worse even if observations and
+actions are still numerically ordered correctly.
+
+### Object Mass Model in the Website Demo
+
+The website object is not the full randomized training distribution. It is a
+fixed tool-like object:
+
+- body origin at the handle center,
+- box handle: half-size `0.10 0.015 0.01`, `density="400"`,
+- capsule head across local Y at `x=0.10`, radius `0.02`, `density="300"`,
+- free joint on the object body,
+- no object `gravcomp`.
+
+The green goal uses matching geometry but is mocap and non-colliding. The policy
+keypoint/object-scale logic is still the hardcoded pretrained/browser path, so
+do not infer randomized training object scales from this single XML object.
+
 ## Policy, Joint Order, and Joint Limits
 
 The browser policy logic is embedded in the built JS bundles. The policy uses
@@ -334,4 +440,3 @@ exposing a supported debug feature.
   - Verify XML fetch cache-busting is present in both fetch paths.
   - The MuJoCo model is loaded from `/working/iiwa_sharpa.xml`, not directly
     from the network URL.
-
