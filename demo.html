@@ -108,14 +108,17 @@
     }
     .label-pill {
       position: absolute;
-      right: 16px;
+      left: 50%;
+      right: auto;
       top: 14px;
+      transform: translateX(-50%);
       padding: 0.7rem 1rem;
       border-radius: 999px;
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
       max-width: calc(100vw - 32px);
-      text-align: right;
+      text-align: center;
       font-size: 0.95rem;
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -180,7 +183,7 @@
 
       <!-- Mobile-only label -->
       <div class="demo-glass label-pill mobile-only">
-        💡 Press buttons to move goal or reset sim
+        Loading: 1-3 min
       </div>
 
       <!-- Mobile-only bottom controls -->
