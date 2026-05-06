@@ -152,6 +152,35 @@
 
   <script>
     const frame = document.getElementById("demoFrame");
+    const demoFrameBaseSrc = "./mujoco_wasm/dist-mobile/index.html";
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+      || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    let wasHidden = false;
+
+    function reloadDemoFrameForIOS() {
+      if (!isIOS || !frame) {
+        return;
+      }
+      frame.src = demoFrameBaseSrc + "?resume=" + Date.now();
+    }
+
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        reloadDemoFrameForIOS();
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!isIOS) {
+        return;
+      }
+      if (document.visibilityState === "hidden") {
+        wasHidden = true;
+      } else if (document.visibilityState === "visible" && wasHidden) {
+        wasHidden = false;
+        reloadDemoFrameForIOS();
+      }
+    });
 
     function sendKey(type, key) {
       if (!frame || !frame.contentWindow) {

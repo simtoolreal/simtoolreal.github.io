@@ -212,8 +212,37 @@
   </section>
 
   <script>
+    const frame = document.getElementById('demoFrame');
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    let wasHidden = false;
+
+    function reloadMobileDemoFrameForIOS() {
+      if (!isIOS || !frame || !frame.src.includes('dist-mobile')) {
+        return;
+      }
+      frame.src = './mujoco_wasm/dist-mobile/index.html?resume=' + Date.now();
+    }
+
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+        reloadMobileDemoFrameForIOS();
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!isIOS) {
+        return;
+      }
+      if (document.visibilityState === 'hidden') {
+        wasHidden = true;
+      } else if (document.visibilityState === 'visible' && wasHidden) {
+        wasHidden = false;
+        reloadMobileDemoFrameForIOS();
+      }
+    });
+
     function triggerDemoReload() {
-      const frame = document.getElementById('demoFrame');
       if (!frame || !frame.contentWindow) {
         return;
       }
@@ -244,7 +273,6 @@
       frame.contentWindow.dispatchEvent(up);
     }
 
-    const frame = document.getElementById('demoFrame');
     function sendKey(type, key) {
       if (!frame || !frame.contentWindow) { return; }
       const event = new KeyboardEvent(type, {
