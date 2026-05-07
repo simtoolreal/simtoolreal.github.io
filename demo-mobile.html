@@ -109,7 +109,6 @@
       <iframe
         id="demoFrame"
         src="./mujoco_wasm/dist-mobile/index.html"
-        loading="lazy"
         style="width: 100%; height: 100%; border: none;"
         title="SimToolReal MuJoCo Web Demo">
         Your browser does not support iframes.
@@ -151,23 +150,62 @@
   </section>
 
   <script>
-    const frame = document.getElementById("demoFrame");
+    let frame = document.getElementById("demoFrame");
     const demoFrameBaseSrc = "./mujoco_wasm/dist-mobile/index.html";
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    let wasHidden = false;
+    let needsIOSFrameReload = false;
+    let reloadTimer = null;
 
-    function reloadDemoFrameForIOS() {
+    function replaceDemoFrame(src) {
+      const replacement = frame.cloneNode(false);
+      replacement.src = src;
+      frame.replaceWith(replacement);
+      frame = replacement;
+    }
+
+    function setDemoFrameSrcForIOS() {
       if (!isIOS || !frame) {
         return;
       }
-      frame.src = demoFrameBaseSrc + "?resume=" + Date.now();
+      clearTimeout(reloadTimer);
+      reloadTimer = setTimeout(() => {
+        replaceDemoFrame(demoFrameBaseSrc + "?resume=" + Date.now());
+      }, 80);
     }
 
-    window.addEventListener("pageshow", (event) => {
-      if (event.persisted) {
-        reloadDemoFrameForIOS();
+    function suspendDemoFrameForIOS() {
+      if (!isIOS || !frame) {
+        return;
       }
+      needsIOSFrameReload = true;
+      clearTimeout(reloadTimer);
+      replaceDemoFrame("about:blank");
+    }
+
+    function resumeDemoFrameForIOS(force = false) {
+      if (!isIOS || !frame) {
+        return;
+      }
+      if (!force && !needsIOSFrameReload && frame.src !== "about:blank") {
+        return;
+      }
+      needsIOSFrameReload = false;
+      setDemoFrameSrcForIOS();
+    }
+
+    window.addEventListener("pagehide", () => {
+      suspendDemoFrameForIOS();
+    });
+
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted || needsIOSFrameReload || frame.src === "about:blank") {
+        resumeDemoFrameForIOS(true);
+      }
+    });
+
+    window.addEventListener("focus", () => {
+      resumeDemoFrameForIOS();
     });
 
     document.addEventListener("visibilitychange", () => {
@@ -175,11 +213,14 @@
         return;
       }
       if (document.visibilityState === "hidden") {
-        wasHidden = true;
-      } else if (document.visibilityState === "visible" && wasHidden) {
-        wasHidden = false;
-        reloadDemoFrameForIOS();
+        suspendDemoFrameForIOS();
+      } else if (document.visibilityState === "visible") {
+        resumeDemoFrameForIOS();
       }
+    });
+
+    window.addEventListener("beforeunload", () => {
+      clearTimeout(reloadTimer);
     });
 
     function sendKey(type, key) {

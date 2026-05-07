@@ -128,7 +128,6 @@
     <div class="demo-display-container" style="height: 100vh; width: 100vw; position: relative; overflow: hidden;">
       <iframe
         id="demoFrame"
-        loading="lazy"
         style="width: 100%; height: 100%; border: none;"
         title="SimToolReal MuJoCo Web Demo">
         Your browser does not support iframes.
@@ -212,34 +211,72 @@
   </section>
 
   <script>
-    const frame = document.getElementById('demoFrame');
+    let frame = document.getElementById('demoFrame');
+    const mobileDemoFrameBaseSrc = './mujoco_wasm/dist-mobile/index.html';
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    let wasHidden = false;
+    let needsIOSFrameReload = false;
+    let reloadTimer = null;
 
-    function reloadMobileDemoFrameForIOS() {
-      if (!isIOS || !frame || !frame.src.includes('dist-mobile')) {
-        return;
-      }
-      frame.src = './mujoco_wasm/dist-mobile/index.html?resume=' + Date.now();
+    function isMobileDemoFrame() {
+      return frame && frame.src.includes('dist-mobile');
     }
 
+    function suspendMobileDemoFrameForIOS() {
+      if (!isIOS || !isMobileDemoFrame()) {
+        return;
+      }
+      needsIOSFrameReload = true;
+      clearTimeout(reloadTimer);
+      replaceMobileDemoFrame('about:blank');
+    }
+
+    function replaceMobileDemoFrame(src) {
+      const replacement = frame.cloneNode(false);
+      replacement.src = src;
+      frame.replaceWith(replacement);
+      frame = replacement;
+    }
+
+    function resumeMobileDemoFrameForIOS(force = false) {
+      if (!isIOS || !frame) {
+        return;
+      }
+      if (!force && !needsIOSFrameReload && frame.src !== 'about:blank') {
+        return;
+      }
+      needsIOSFrameReload = false;
+      clearTimeout(reloadTimer);
+      reloadTimer = setTimeout(() => {
+        replaceMobileDemoFrame(mobileDemoFrameBaseSrc + '?resume=' + Date.now());
+      }, 80);
+    }
+
+    window.addEventListener('pagehide', () => {
+      suspendMobileDemoFrameForIOS();
+    });
+
     window.addEventListener('pageshow', (event) => {
-      if (event.persisted) {
-        reloadMobileDemoFrameForIOS();
+      if (event.persisted || needsIOSFrameReload || frame.src === 'about:blank') {
+        resumeMobileDemoFrameForIOS(true);
       }
     });
 
+    window.addEventListener('focus', () => {
+      resumeMobileDemoFrameForIOS();
+    });
+
     document.addEventListener('visibilitychange', () => {
-      if (!isIOS) {
-        return;
-      }
+      if (!isIOS) { return; }
       if (document.visibilityState === 'hidden') {
-        wasHidden = true;
-      } else if (document.visibilityState === 'visible' && wasHidden) {
-        wasHidden = false;
-        reloadMobileDemoFrameForIOS();
+        suspendMobileDemoFrameForIOS();
+      } else if (document.visibilityState === 'visible') {
+        resumeMobileDemoFrameForIOS();
       }
+    });
+
+    window.addEventListener('beforeunload', () => {
+      clearTimeout(reloadTimer);
     });
 
     function triggerDemoReload() {
