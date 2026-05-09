@@ -22,7 +22,7 @@
     (function () {
       const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
       if (isMobile && !window.location.pathname.endsWith("/demo-mobile.html")) {
-        window.location.replace("./demo-mobile.html");
+        window.location.replace("./demo-mobile.html" + window.location.search + window.location.hash);
       }
     })();
   </script>
@@ -135,8 +135,12 @@
       <script>
         (function () {
           const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+          const resumeToken = new URLSearchParams(window.location.search).get('resume');
+          const mobileSrc = resumeToken
+            ? './mujoco_wasm/dist-mobile/index.html?resume=' + encodeURIComponent(resumeToken)
+            : './mujoco_wasm/dist-mobile/index.html';
           document.getElementById('demoFrame').src = isMobile
-            ? './mujoco_wasm/dist-mobile/index.html'
+            ? mobileSrc
             : './mujoco_wasm/dist-desktop/index.html';
         })();
       </script>
@@ -216,6 +220,8 @@
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let needsIOSFrameReload = false;
+    let needsIOSPageReload = false;
+    let isIOSPageReloading = false;
     let reloadTimer = null;
 
     function isMobileDemoFrame() {
@@ -227,6 +233,7 @@
         return;
       }
       needsIOSFrameReload = true;
+      needsIOSPageReload = true;
       clearTimeout(reloadTimer);
       replaceMobileDemoFrame('about:blank');
     }
@@ -242,6 +249,10 @@
       if (!isIOS || !frame) {
         return;
       }
+      if (needsIOSPageReload) {
+        reloadDemoPageForIOS('resume');
+        return;
+      }
       if (!force && !needsIOSFrameReload && frame.src !== 'about:blank') {
         return;
       }
@@ -252,11 +263,27 @@
       }, 80);
     }
 
+    function reloadDemoPageForIOS(reason) {
+      if (!isIOS || isIOSPageReloading) {
+        return;
+      }
+      isIOSPageReloading = true;
+      clearTimeout(reloadTimer);
+      const url = new URL(window.location.href);
+      url.searchParams.set('resume', Date.now().toString());
+      url.searchParams.set('reason', reason);
+      window.location.replace(url.toString());
+    }
+
     window.addEventListener('pagehide', () => {
       suspendMobileDemoFrameForIOS();
     });
 
     window.addEventListener('pageshow', (event) => {
+      if (event.persisted || needsIOSPageReload) {
+        reloadDemoPageForIOS('pageshow');
+        return;
+      }
       if (event.persisted || needsIOSFrameReload || frame.src === 'about:blank') {
         resumeMobileDemoFrameForIOS(true);
       }
@@ -266,10 +293,21 @@
       resumeMobileDemoFrameForIOS();
     });
 
+    window.addEventListener('message', (event) => {
+      if (!isIOS || !frame || event.source !== frame.contentWindow) {
+        return;
+      }
+      if (event.data && event.data.type === 'simtoolreal:mobile-demo-reload') {
+        reloadDemoPageForIOS(event.data.reason || 'frame');
+      }
+    });
+
     document.addEventListener('visibilitychange', () => {
       if (!isIOS) { return; }
       if (document.visibilityState === 'hidden') {
         suspendMobileDemoFrameForIOS();
+      } else if (document.visibilityState === 'visible' && needsIOSPageReload) {
+        reloadDemoPageForIOS('visible');
       } else if (document.visibilityState === 'visible') {
         resumeMobileDemoFrameForIOS();
       }

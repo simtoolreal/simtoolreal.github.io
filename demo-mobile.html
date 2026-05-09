@@ -154,8 +154,15 @@
     const demoFrameBaseSrc = "./mujoco_wasm/dist-mobile/index.html";
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const pageResumeToken = new URLSearchParams(window.location.search).get("resume");
     let needsIOSFrameReload = false;
+    let needsIOSPageReload = false;
+    let isIOSPageReloading = false;
     let reloadTimer = null;
+
+    if (isIOS && pageResumeToken) {
+      frame.src = demoFrameBaseSrc + "?resume=" + encodeURIComponent(pageResumeToken);
+    }
 
     function replaceDemoFrame(src) {
       const replacement = frame.cloneNode(false);
@@ -187,6 +194,10 @@
       if (!isIOS || !frame) {
         return;
       }
+      if (needsIOSPageReload) {
+        reloadDemoPageForIOS("resume");
+        return;
+      }
       if (!force && !needsIOSFrameReload && frame.src !== "about:blank") {
         return;
       }
@@ -194,11 +205,28 @@
       setDemoFrameSrcForIOS();
     }
 
+    function reloadDemoPageForIOS(reason) {
+      if (!isIOS || isIOSPageReloading) {
+        return;
+      }
+      isIOSPageReloading = true;
+      clearTimeout(reloadTimer);
+      const url = new URL(window.location.href);
+      url.searchParams.set("resume", Date.now().toString());
+      url.searchParams.set("reason", reason);
+      window.location.replace(url.toString());
+    }
+
     window.addEventListener("pagehide", () => {
+      needsIOSPageReload = true;
       suspendDemoFrameForIOS();
     });
 
     window.addEventListener("pageshow", (event) => {
+      if (event.persisted || needsIOSPageReload) {
+        reloadDemoPageForIOS("pageshow");
+        return;
+      }
       if (event.persisted || needsIOSFrameReload || frame.src === "about:blank") {
         resumeDemoFrameForIOS(true);
       }
@@ -208,12 +236,24 @@
       resumeDemoFrameForIOS();
     });
 
+    window.addEventListener("message", (event) => {
+      if (!isIOS || !frame || event.source !== frame.contentWindow) {
+        return;
+      }
+      if (event.data && event.data.type === "simtoolreal:mobile-demo-reload") {
+        reloadDemoPageForIOS(event.data.reason || "frame");
+      }
+    });
+
     document.addEventListener("visibilitychange", () => {
       if (!isIOS) {
         return;
       }
       if (document.visibilityState === "hidden") {
+        needsIOSPageReload = true;
         suspendDemoFrameForIOS();
+      } else if (document.visibilityState === "visible" && needsIOSPageReload) {
+        reloadDemoPageForIOS("visible");
       } else if (document.visibilityState === "visible") {
         resumeDemoFrameForIOS();
       }

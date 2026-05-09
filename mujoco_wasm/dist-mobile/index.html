@@ -10,6 +10,61 @@
         <meta name="viewport"           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no, shrink-to-fit=0">
         <meta name="theme-color"        content="#ffffff">
         <link rel ="icon" type="image/x-icon" href="./assets/favicon-BC978tFc.png">
+        <script>
+            (function () {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+                    || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+                let wasHidden = false;
+                let reloadQueued = false;
+
+                function requestMobileDemoReload(reason) {
+                    if (!isIOS || reloadQueued) {
+                        return;
+                    }
+                    reloadQueued = true;
+                    try {
+                        if (window.parent && window.parent !== window) {
+                            window.parent.postMessage({
+                                type: "simtoolreal:mobile-demo-reload",
+                                reason
+                            }, "*");
+                        }
+                    } catch (error) {
+                        // Fall through to the local iframe reload below.
+                    }
+
+                    setTimeout(() => {
+                        const url = new URL(window.location.href);
+                        url.searchParams.set("resume", Date.now().toString());
+                        url.searchParams.set("reason", reason);
+                        window.location.replace(url.toString());
+                    }, 250);
+                }
+
+                document.addEventListener("webglcontextlost", (event) => {
+                    event.preventDefault();
+                    requestMobileDemoReload("webgl-context-lost");
+                }, true);
+
+                document.addEventListener("visibilitychange", () => {
+                    if (!isIOS) {
+                        return;
+                    }
+                    if (document.visibilityState === "hidden") {
+                        wasHidden = true;
+                    } else if (document.visibilityState === "visible" && wasHidden) {
+                        wasHidden = false;
+                        setTimeout(() => {
+                            const canvas = document.querySelector("canvas");
+                            const gl = canvas && (canvas.getContext("webgl2") || canvas.getContext("webgl"));
+                            if (!canvas || !gl || (gl.isContextLost && gl.isContextLost())) {
+                                requestMobileDemoReload("bad-webgl-after-resume");
+                            }
+                        }, 1000);
+                    }
+                });
+            })();
+        </script>
       <script type="module" crossorigin src="./assets/index-Biog2l8U.js"></script>
     </head>
 
