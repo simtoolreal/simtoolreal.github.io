@@ -135,13 +135,23 @@
       <script>
         (function () {
           const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+          const demoFrameVersion = '20260510';
           const resumeToken = new URLSearchParams(window.location.search).get('resume');
-          const mobileSrc = resumeToken
-            ? './mujoco_wasm/dist-mobile/index.html?resume=' + encodeURIComponent(resumeToken)
-            : './mujoco_wasm/dist-mobile/index.html';
+          function demoSrc(path, params = {}) {
+            const url = new URL(path, window.location.href);
+            url.searchParams.set('v', demoFrameVersion);
+            Object.entries(params).forEach(([key, value]) => {
+              url.searchParams.set(key, value.toString());
+            });
+            return url.toString();
+          }
+          const mobileSrc = demoSrc(
+            './mujoco_wasm/dist-mobile/index.html',
+            resumeToken ? { resume: resumeToken } : {}
+          );
           document.getElementById('demoFrame').src = isMobile
             ? mobileSrc
-            : './mujoco_wasm/dist-desktop/index.html';
+            : demoSrc('./mujoco_wasm/dist-desktop/index.html');
         })();
       </script>
 
@@ -217,6 +227,7 @@
   <script>
     let frame = document.getElementById('demoFrame');
     const mobileDemoFrameBaseSrc = './mujoco_wasm/dist-mobile/index.html';
+    const demoFrameVersion = '20260510';
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let needsIOSFrameReload = false;
@@ -226,6 +237,15 @@
 
     function isMobileDemoFrame() {
       return frame && frame.src.includes('dist-mobile');
+    }
+
+    function mobileDemoFrameSrc(params = {}) {
+      const url = new URL(mobileDemoFrameBaseSrc, window.location.href);
+      url.searchParams.set('v', demoFrameVersion);
+      Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.set(key, value.toString());
+      });
+      return url.toString();
     }
 
     function suspendMobileDemoFrameForIOS() {
@@ -259,7 +279,7 @@
       needsIOSFrameReload = false;
       clearTimeout(reloadTimer);
       reloadTimer = setTimeout(() => {
-        replaceMobileDemoFrame(mobileDemoFrameBaseSrc + '?resume=' + Date.now());
+        replaceMobileDemoFrame(mobileDemoFrameSrc({ resume: Date.now() }));
       }, 80);
     }
 

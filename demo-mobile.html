@@ -108,7 +108,7 @@
     <div class="demo-display-container" style="height: 100vh; width: 100vw; position: relative; overflow: hidden;">
       <iframe
         id="demoFrame"
-        src="./mujoco_wasm/dist-mobile/index.html"
+        src="./mujoco_wasm/dist-mobile/index.html?v=20260510"
         style="width: 100%; height: 100%; border: none;"
         title="SimToolReal MuJoCo Web Demo">
         Your browser does not support iframes.
@@ -152,6 +152,7 @@
   <script>
     let frame = document.getElementById("demoFrame");
     const demoFrameBaseSrc = "./mujoco_wasm/dist-mobile/index.html";
+    const demoFrameVersion = "20260510";
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
       || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     const pageResumeToken = new URLSearchParams(window.location.search).get("resume");
@@ -161,7 +162,16 @@
     let reloadTimer = null;
 
     if (isIOS && pageResumeToken) {
-      frame.src = demoFrameBaseSrc + "?resume=" + encodeURIComponent(pageResumeToken);
+      frame.src = demoFrameSrc({ resume: pageResumeToken });
+    }
+
+    function demoFrameSrc(params = {}) {
+      const url = new URL(demoFrameBaseSrc, window.location.href);
+      url.searchParams.set("v", demoFrameVersion);
+      Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.set(key, value.toString());
+      });
+      return url.toString();
     }
 
     function replaceDemoFrame(src) {
@@ -177,7 +187,7 @@
       }
       clearTimeout(reloadTimer);
       reloadTimer = setTimeout(() => {
-        replaceDemoFrame(demoFrameBaseSrc + "?resume=" + Date.now());
+        replaceDemoFrame(demoFrameSrc({ resume: Date.now() }));
       }, 80);
     }
 
@@ -218,6 +228,9 @@
     }
 
     window.addEventListener("pagehide", () => {
+      if (!isIOS) {
+        return;
+      }
       needsIOSPageReload = true;
       suspendDemoFrameForIOS();
     });

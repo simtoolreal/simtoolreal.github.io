@@ -14,11 +14,14 @@
             (function () {
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
                     || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+                if (!isIOS) {
+                    return;
+                }
                 let wasHidden = false;
                 let reloadQueued = false;
 
                 function requestMobileDemoReload(reason) {
-                    if (!isIOS || reloadQueued) {
+                    if (reloadQueued) {
                         return;
                     }
                     reloadQueued = true;
